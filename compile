@@ -1,0 +1,5 @@
+#!/bin/bash
+flex -o preprocessor.c preprocessor.lex &&
+g++ --std=c++11 preprocessor.c -o nogpre
+flex -o lexer.c lexer.lex &&
+g++ --std=c++11 lexer.c -o noglex

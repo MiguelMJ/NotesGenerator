@@ -1,6 +1,23 @@
 # NotesGenerator
 Lotes of syntax sugar for taking lecture notes in Latex.
 ***
+To Do
+=====
+- First of all, this documentation needs to be improved, starting by translating all to english.
+- Then, there should be some examples included, so I'll try to upload som in coming updates.
+- And of course, rearrange the contents of this readme file and go deeper into details, but, yes, time.
+- Also, here's a list of features pending to be implemented
+
+***
+Compiling
+.........
+The only dependency is pdflatex and maybe some LaTex packages (check them in the nog file)
+Compiling is done with gcc and flex, but you won't need them if you are not planning to modify it or recompile it in windows (ugh).
+Usage
+.....
+User should only call nog, which will call nogpre and noglex, so all of them should be accessible in PATH. Anyway, if you want to better understand how all works, it won't harm to call nogpre or noglex and see what they print by yourself.
+
+***
 Notes Generator (para anotaciones de clase y apuntes)
 Para incluir algo en el preámbulo del documento LaTex, la primera línea de los apuntes debe ser #pre, y el fragmento debe cerrarse con #end
 
@@ -62,7 +79,7 @@ _(Nota a pie de página)_
 codigo en lenguaje
 }]
 ```
-EN MODO MATEMÁTICAS (ENTRE $ o $$)
+En modo matemáticas (entre $ o $$)
 ----------------------------------
 ```
 función definida a trozos = {{
@@ -72,10 +89,11 @@ función definida a trozos = {{
 
 corchetes sintácticos [[ ]]
 ```
-OTROS
+Otros
 -----
 ```
 -> --> => ==>
 <- <-- <= <==
 <-> <--> <=> <==>
 ```
+***
