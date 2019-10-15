@@ -7,14 +7,16 @@ To Do
 - Then, there should be some examples included, so I'll try to upload som in coming updates.
 - And of course, rearrange the contents of this readme file and go deeper into details, but, yes, time.
 - Also, here's a list of features pending to be implemented
+    - tables
+    - multicolumn text
+    - boxed text
+    - graphs/trees(? maybe some automatic tikz stuff)
 
 ***
-Compiling
-.........
+### Compiling
 The only dependency is pdflatex and maybe some LaTex packages (check them in the nog file)
 Compiling is done with gcc and flex, but you won't need them if you are not planning to modify it or recompile it in windows (ugh).
-Usage
-.....
+### Usage
 User should only call nog, which will call nogpre and noglex, so all of them should be accessible in PATH. Anyway, if you want to better understand how all works, it won't harm to call nogpre or noglex and see what they print by yourself.
 
 ***
@@ -96,4 +98,3 @@ Otros
 <- <-- <= <==
 <-> <--> <=> <==>
 ```
-***
