@@ -18,14 +18,16 @@ OPCIONES DE NOG
 -f          Prints the list of FIXME at the end of the file.
 
 PLANTILLA DE NOG
-
+================
+En modo texto
+-------------
+```
 Tema
 ****
 Apartado
 ========
 Subapartado
 -----------
-
 **negrita**
 __cursiva__
 [[snippet]]
@@ -53,18 +55,21 @@ _(Nota a pie de página)_
 [{
 codigo en lenguaje
 }]
-
-EN MODO MATEMÁTICAS (ENTRE $)
-
+```
+EN MODO MATEMÁTICAS (ENTRE $ o $$)
+----------------------------------
+```
 función definida a trozos = {{
     caso primero \\
     caso segundo
 }}
 
 corchetes sintácticos [[ ]]
-
-OTROS 
-
+```
+OTROS
+-----
+```
 -> --> => ==>
 <- <-- <= <==
 <-> <--> <=> <==>
+```
