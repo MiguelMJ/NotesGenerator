@@ -1,6 +1,6 @@
-#line 2 "preprocessor.c"
+#line 2 "preprocessor.cpp"
 
-#line 4 "preprocessor.c"
+#line 4 "preprocessor.cpp"
 
 #define  YY_INT_ALIGNED short int
 
@@ -519,8 +519,8 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "preprocessor.lex"
-#line 2 "preprocessor.lex"
+#line 1 "preprocessor.flex"
+#line 2 "preprocessor.flex"
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -536,7 +536,7 @@ map<int, vector<string> > fixme;
 map<int, vector<string> > kwi;// keyword index
 
 
-#line 540 "preprocessor.c"
+#line 540 "preprocessor.cpp"
 
 #define INITIAL 0
 #define INCLUDE 1
@@ -759,12 +759,12 @@ YY_DECL
 		}
 
 	{
-#line 19 "preprocessor.lex"
+#line 19 "preprocessor.flex"
 
 
 // string sectionNumber();
 
-#line 768 "preprocessor.c"
+#line 768 "preprocessor.cpp"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -825,7 +825,7 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 24 "preprocessor.lex"
+#line 24 "preprocessor.flex"
 {}
 	YY_BREAK
 case 2:
@@ -833,7 +833,7 @@ case 2:
 (yy_c_buf_p) = yy_cp -= 1;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 25 "preprocessor.lex"
+#line 25 "preprocessor.flex"
 { BEGIN(INCLUDE); }
 	YY_BREAK
 case 3:
@@ -841,12 +841,12 @@ case 3:
 (yy_c_buf_p) = yy_cp -= 1;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 26 "preprocessor.lex"
+#line 26 "preprocessor.flex"
 {}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 27 "preprocessor.lex"
+#line 27 "preprocessor.flex"
 { BEGIN(BODY); }
 	YY_BREAK
 
@@ -856,13 +856,13 @@ case 5:
 (yy_c_buf_p) = yy_cp -= 1;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 30 "preprocessor.lex"
+#line 30 "preprocessor.flex"
 { BEGIN(BODY); }
 	YY_BREAK
 case 6:
 /* rule 6 can match eol */
 YY_RULE_SETUP
-#line 31 "preprocessor.lex"
+#line 31 "preprocessor.flex"
 { cout << yytext; }
 	YY_BREAK
 
@@ -870,7 +870,7 @@ YY_RULE_SETUP
 case 7:
 /* rule 7 can match eol */
 YY_RULE_SETUP
-#line 35 "preprocessor.lex"
+#line 35 "preprocessor.flex"
 { u++; /*us=0; uss=0*/;
                         string str(yytext);
                         un.push_back(str.substr(0,str.find('\n')+1));
@@ -879,18 +879,18 @@ YY_RULE_SETUP
 case 8:
 /* rule 8 can match eol */
 YY_RULE_SETUP
-#line 39 "preprocessor.lex"
+#line 39 "preprocessor.flex"
 { /*us++; uss=0*/; }
 	YY_BREAK
 case 9:
 /* rule 9 can match eol */
 YY_RULE_SETUP
-#line 40 "preprocessor.lex"
+#line 40 "preprocessor.flex"
 { /*uss++;*/ }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 42 "preprocessor.lex"
+#line 42 "preprocessor.flex"
 {
                                 string kw(yytext);
                                 kw = kw.substr(2,yyleng-4);
@@ -902,7 +902,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 50 "preprocessor.lex"
+#line 50 "preprocessor.flex"
 { 
                         stringstream ss;
                         ss << "fixme" << fixme.size();
@@ -912,16 +912,16 @@ YY_RULE_SETUP
 case 12:
 /* rule 12 can match eol */
 YY_RULE_SETUP
-#line 56 "preprocessor.lex"
+#line 56 "preprocessor.flex"
 {}
 	YY_BREAK
 
 case 13:
 YY_RULE_SETUP
-#line 59 "preprocessor.lex"
+#line 59 "preprocessor.flex"
 ECHO;
 	YY_BREAK
-#line 925 "preprocessor.c"
+#line 925 "preprocessor.cpp"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(INCLUDE):
 case YY_STATE_EOF(BODY):
@@ -1927,7 +1927,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 59 "preprocessor.lex"
+#line 59 "preprocessor.flex"
 
 
 /*string sectionNumber(){

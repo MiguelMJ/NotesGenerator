@@ -9,6 +9,8 @@ file="$title"
 preappendices=""
 glossary=""
 fixmelist=""
+timeout="timeout 5"
+language="spanish"
 
 # TEMPORAL FILES
 
@@ -25,6 +27,10 @@ fi
 while [ ${1:0:1} == "-" ]
 do
     case "$1" in 
+    -l)
+        language="$2"
+        shift
+    ;;
     -k)
         timeout="timeout $2"
         shift
@@ -62,7 +68,7 @@ do
         file="$2"
         shift
     ;;
-    --save)
+    --save|-s)
         save="true"
     ;;
     *)
@@ -85,7 +91,7 @@ cat << _END_ > "$nogtemptex"
 \documentclass{article}
 
 \usepackage[utf8]{inputenc} % UNICODE INPUT
-\usepackage[spanish]{babel} % LANGUAGE
+\usepackage[$language]{babel} % LANGUAGE
 \usepackage[left=3cm,
             right=2cm,
             top=1.5cm,
@@ -98,7 +104,7 @@ cat << _END_ > "$nogtemptex"
 \usepackage{listings}   % FOR CODE SYNTAX HIGHLIGHT
 \usepackage{xcolor}     % MORE COLOR
 \usepackage{perpage}    % FOR FOOTNOTES NUMBERING
-\usepackage{cancel}     % ENABLING \cancel COMMANDS IN MATHMODE
+% \usepackage{cancel}     % ENABLING \cancel COMMANDS IN MATHMODE
 \usepackage{tikz}       % GRAPHS AND DRAWINGS
 \usepackage{forest}     % FOR SCHEMES
 \usepackage[hidelinks]{hyperref} % FOR LINKS
@@ -106,8 +112,8 @@ cat << _END_ > "$nogtemptex"
 \usepackage{appendix}   % FOR THE GLOSSARY
 \usepackage{enumitem}   % TO CHANGE ITEMS IN ITEMIZES
 \usepackage{multicol}   % TO SEPARATE TEXT IN COLUMNS
-\usepackage{stmaryrd}   % TO USE SYNTACTIC BRACKETS
-\usepackage{amsmath}    % EMBEDDED TEXT IN MATH MODE
+% \usepackage{stmaryrd}   % TO USE SYNTACTIC BRACKETS
+% \usepackage{amsmath}    % EMBEDDED TEXT IN MATH MODE
 
 
 % SOME COLORS DEFINED

@@ -25,9 +25,7 @@ bool footnote=false;
 }
 <CODE>{
     [[:print:]]{-}[\}\]]+    { cout << yytext; }
-    \]          { cout << yytext; }
-    \}          { cout << yytext; } 
-    "}]"        { cout << "\\end{lstlisting}"; BEGIN(INITIAL); }
+    ^"```"$        { cout << "\\end{lstlisting}"; BEGIN(INITIAL); }
     .           {}
 }
 <MATH>{
@@ -104,7 +102,7 @@ bool footnote=false;
                             transform(str.begin(),str.end(),str.begin(),[](unsigned char c){ return tolower(c);});
                             cout << "\\label{kw:"<< str <<"}"; 
                            }
-"[["([^\]\n]"]"?)*"]]"     {
+"`"([^\]\n]"]"?)*"`"     {
                             string str = trim(yytext,2,2);
                             prepare(str);
                             cout << "\\codeword{" << str << "}";
@@ -121,13 +119,14 @@ bool footnote=false;
                   }
                 }
 
-"(("(?i:code:)"".*"))" { cout << endl << "\\lstset{language=" << trim(yytext,7,2) << "}" << endl; }
 "(("(?i:fixme)"))" { 
                     static int fm=0;
                     cout << "\\fixme\\label{fixme" << fm++ << "} "; 
                    }
-"[{"            { cout << "\\begin{lstlisting}"; BEGIN(CODE); }
-
+^"```".*$   {   cout << endl << "\\lstset{language=" << trim(yytext,3,0) << "}" << endl;
+                cout << "\\begin{lstlisting}"; 
+                BEGIN(CODE); 
+            }
 
 "{*"" "*\n*     { cout << "\\begin{itemize}"; itemslevel++; }
 "*}"" "*\n*     { cout << "\\end{itemize}"; itemslevel--; }
