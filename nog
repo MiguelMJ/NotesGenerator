@@ -25,6 +25,10 @@ fi
 while [ ${1:0:1} == "-" ]
 do
     case "$1" in 
+    -k)
+        timeout="timeout $2"
+        shift
+    ;;
     -a)
         author="$2"
         shift
@@ -103,6 +107,7 @@ cat << _END_ > "$nogtemptex"
 \usepackage{enumitem}   % TO CHANGE ITEMS IN ITEMIZES
 \usepackage{multicol}   % TO SEPARATE TEXT IN COLUMNS
 \usepackage{stmaryrd}   % TO USE SYNTACTIC BRACKETS
+\usepackage{amsmath}    % EMBEDDED TEXT IN MATH MODE
 
 
 % SOME COLORS DEFINED
@@ -235,7 +240,7 @@ cat << _END_ >> "$nogtemptex"
 
 \begin{document}
     \maketitle
-    \tableofcontents
+    \myindex
 _END_
 
 noglex $* >> "$nogtemptex"
@@ -251,9 +256,8 @@ $fixmelist
 \end{document}
 _END_
 
-timeout 5 pdflatex -draftmode -output-directory "$nogtempdir" "$nogtemptex" > /dev/null 2>&1 &&
-timeout 5 pdflatex -output-directory "$nogtempdir" "$nogtemptex" > /dev/null 2>&1 &&
-
+$timeout pdflatex -draftmode -output-directory "$nogtempdir" "$nogtemptex" > /dev/null 2>&1 &&
+pdflatex -output-directory "$nogtempdir" "$nogtemptex" > /dev/null 2>&1 &&
 mv "$nogtempdir/"*"pdf" "./$file.pdf" > /dev/null &&
 echo "$file.pdf succesfully generated" ||
 echo "Latex Errors:" &&

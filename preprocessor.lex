@@ -78,54 +78,48 @@ int main(int argc, char** argv){
                 cerr << "Couldn't open " << argv[i] << endl;
             }else{
                 yylex();
-                // WE PRINT MYGLOSSARY COMMAND WITH THE KEYWORDS
-                cout << "\\newcommand{\\myglossary}{" << endl;
-                    for(int i=0; i < un.size(); i++){
-                        if(kwi.find(i) != kwi.end()){
-                            // cout << "    " << i.first << endl;
-                            cout << "    \\textbf{" << un[i] << "}" << endl;
-                            cout << "    \\begin{multicols}{3}" << endl;
-                            cout << "    \\begin{itemize}[label={}]" << endl;
-                            // for(auto ii : i.second){
-                            for(auto ii : kwi[i]){
-                                cout << "        \\item \\hyperref[kw:" << ii << "]{" << ii << ", \\pageref*{kw:" << ii << "}}" << endl;
-                            }
-                            cout << "    \\end{itemize}" << endl;
-                            cout << "    \\end{multicols}" << endl;
-                        }
-                    }       
-                cout << "}" << endl;
-                // WE PRINT THE FIXMELIST COMMAND
-                cout << "\\newcommand{\\fixmelist}{" << endl;
-                    for(int i=0; i < un.size(); i++){
-                        if(fixme.find(i) != fixme.end()){
-                            // cout << "    " << i.first << endl;
-                            cout << "    \\textbf{" << un[i] << "}" << endl;
-                            cout << "    \\begin{multicols}{3}" << endl;
-                            cout << "    \\begin{itemize}[label={}]" << endl;
-                            // for(auto ii : i.second){
-                            for(auto ii : fixme[i]){
-                                cout << "        \\item \\hyperref[" << ii << "]{" << string(ii).insert(5,"\\_") << ", \\pageref*{" << ii << "}}" << endl; 
-                            }
-                            cout << "    \\end{itemize}" << endl;
-                            cout << "    \\end{multicols}" << endl;
-                        }
-                    }       
-                cout << "}" << endl;
-                
-//                 if(fixme.size() > 0){
-//                     cout << "\\newcommand{\\fixmelist}{" << endl;
-//                     cout << "    \\begin{multicols}{3}" << endl;
-//                     cout << "    \\begin{itemize}[label={}]" << endl;
-//                     for (int i=0; i < fixme.size(); i++){
-//                         cout << "        \\item \\hyperref[" << fixme[i] << "]{" << string(fixme[i]).insert(5,"\\_") << ", \\pageref*{" << fixme[i] << "}}" << endl; 
-//                     }
-//                     cout << "    \\end{itemize}" << endl;
-//                     cout << "    \\end{multicols}" << endl;
-//                     cout << "}" << endl;
-//                 }
             }
         }
+        // WE PRINT MYINDEX COMMAND
+        cout << "\\newcommand{\\myindex}{" << endl;
+            if(un.size() > 0){
+                cout << "\\tableofcontents";
+            }       
+        cout << "}" << endl;
+        // WE PRINT MYGLOSSARY COMMAND WITH THE KEYWORDS
+        cout << "\\newcommand{\\myglossary}{" << endl;
+            for(int i=0; i < un.size(); i++){
+                if(kwi.find(i) != kwi.end()){
+                    // cout << "    " << i.first << endl;
+                    cout << "    \\textbf{" << un[i] << "}" << endl;
+                    cout << "    \\begin{multicols}{3}" << endl;
+                    cout << "    \\begin{itemize}[label={}]" << endl;
+                    // for(auto ii : i.second){
+                    for(auto ii : kwi[i]){
+                        cout << "        \\item \\hyperref[kw:" << ii << "]{" << ii << ", \\pageref*{kw:" << ii << "}}" << endl;
+                    }
+                    cout << "    \\end{itemize}" << endl;
+                    cout << "    \\end{multicols}" << endl;
+                }
+            }       
+        cout << "}" << endl;
+        // WE PRINT THE FIXMELIST COMMAND
+        cout << "\\newcommand{\\fixmelist}{" << endl;
+            for(int i=0; i < un.size(); i++){
+                if(fixme.find(i) != fixme.end()){
+                    // cout << "    " << i.first << endl;
+                    cout << "    \\textbf{" << un[i] << "}" << endl;
+                    cout << "    \\begin{multicols}{3}" << endl;
+                    cout << "    \\begin{itemize}[label={}]" << endl;
+                    // for(auto ii : i.second){
+                    for(auto ii : fixme[i]){
+                        cout << "        \\item \\hyperref[" << ii << "]{" << string(ii).insert(5,"\\_") << ", \\pageref*{" << ii << "}}" << endl; 
+                    }
+                    cout << "    \\end{itemize}" << endl;
+                    cout << "    \\end{multicols}" << endl;
+                }
+            }       
+        cout << "}" << endl;
     }
     return 0;
 }
