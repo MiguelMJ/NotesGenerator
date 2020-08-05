@@ -17,11 +17,6 @@ language="spanish"
 nogtempdir=$(mktemp -d)
 nogtemptex="$nogtempdir/nogtemp.tex"
 
-if [ ! -d "$nogtempdir" ]
-then
-    mkdir "$nogtempdir"
-fi
-
 # OPTION PARSING
 
 while [ ${1:0:1} == "-" ]
