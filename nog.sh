@@ -14,7 +14,7 @@ language="spanish"
 
 # TEMPORAL FILES
 
-nogtempdir="nogtmp"
+nogtempdir=$(mktemp -d)
 nogtemptex="$nogtempdir/nogtemp.tex"
 
 if [ ! -d "$nogtempdir" ]
@@ -270,7 +270,13 @@ echo "Latex Errors:" &&
 grep '^!' "$nogtempdir/nogtemp.log" &&
 exit 1
 
-if [ -z $save  ]
+if [ ! -z "$save"  ]
 then
+    echo "Saving temporal files"
+    mv "$nogtempdir" nogtmp
+else
+    # not actually necessary, but meh
+    echo "Deleting temporal files"
     rm -r "$nogtempdir"
 fi
+echo "Done"
