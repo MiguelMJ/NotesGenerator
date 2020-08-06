@@ -13,8 +13,10 @@ nogpre: nogpre.o
 noglex: noglex.o
 	$(CXX) $< -o $@
 
-doc: doc/nog.md
-	pandoc $< -s -t man -o nog.1
+doc: nog.1
+
+nog.1: doc/nog.md
+	pandoc $< -s -t man -o $@
 	
 install: all
 	@echo "Copying files and updating mandb"
