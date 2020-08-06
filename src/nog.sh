@@ -1,4 +1,34 @@
 #!/bin/bash
+version="nog 1.1"
+usage='Usage: nog [OPTIONS] [FILES]
+Reads in order a list of files and processes them in several steps to generate a pdf file via *pdflatex*.
+
+-a author
+    Set the author of the notes.
+-t title
+    Set the title of the notes.
+-d  
+    Add the date to the generated notes.
+-o file
+    Name of the output file without the pdf extension.
+-s, --save
+    Save temporal files (including the .tex).
+-g  
+    Add an appendix with the glossary.
+-f  
+    Add an appendix with the list of fixme.
+-k timeout
+    Kill pdflatex after timeout seconds, if it doesn'"'"'t compile.  By 
+    default it is 5 (seconds).
+-l language
+    Sets the language for the LaTex package babel.
+'
+
+# PRINT BASIC USAGE
+if [ $# -eq 0 ]; then
+    echo -e "$version\n$usage"
+    exit 0
+fi
 
 # DEFAULT VALUES FOR PARAMETERS
 
@@ -19,9 +49,17 @@ nogtemptex="$nogtempdir/nogtemp.tex"
 
 # OPTION PARSING
 
-while [ ${1:0:1} == "-" ]
+while [ "${1:0:1}" == "-" ]
 do
     case "$1" in 
+    -v)
+        echo "$version"
+        exit 0
+    ;;
+    -h)
+        echo "$usage"
+        exit 0
+    ;;
     -l)
         language="$2"
         shift
