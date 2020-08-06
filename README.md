@@ -7,6 +7,19 @@ Flex, Bash and PDFLaTex to take easy beautiful notes.
   - [And why not just markdown and pandoc?](#and-why-not-just-markdown-and-pandoc?)
 - [Usage](#usage)
 - [Build NOG](#build-nog)
+- [Features](#features)
+  - [Escaping](#escaping)
+  - [Sectioning with Units](#sectioning-with-units)
+  - [Emphasis](#emphasis)
+  - [Footnotes](#footnotes)
+  - [Lists](#lists)
+  - [Code](#code)
+  - [Fixmes](#fixmes)
+  - [Keywords](#keywords)
+  - [LaTex commands](#latex-commands)
+  - [Symbol substitution](#symbol-substitution)
+- [To do](#to-do)
+- [License](#license)
 
 ## What is NOG?
 
@@ -64,18 +77,16 @@ $ ./nog -v
 nog 1.1
 ```
 
-## How does it work
+## Features
 
 The files passed to the `nog` command are processed in order, so you could think of them as a single concatenated file. Their content are passed to the body of the LaTex document.
 
-### Features
-
-#### No more useless escaping
+### Escaping
 
 There are some characters in LaTex that must be escaped when not in math mode. NOG escapes them in the context where it is clear that they must be escaped:
 - `_` is escaped everywhere outside math mode.
 - `$` is escaped within the name of units, subunits and subsubunits, keywords and snippets.(see below)
-#### Sectioning with Units
+### Sectioning with Units
 
 To keep it simple, NOG uses just three levels of sectioning: _Unit_, _Unit section_ and _Unit subsection_. The main Table of Contents contains just the Units, and each Unit contains another ToC with its unit sections and unit subsections.
 
@@ -87,7 +98,7 @@ Unit section
 Unit subsection
 ---------------
 ```
-#### Emphasis
+### Emphasis
 
 Double asterisks for bold text and double underscore for italic test to mark keywords.
 
@@ -95,14 +106,14 @@ Double asterisks for bold text and double underscore for italic test to mark key
 **bold**
 __italic__
 ```
-#### Footnotes
+### Footnotes
 
 Footnotes use arabic numbers, restarting in each page.
 
 ```
 _(footnote)_
 ```
-#### Lists
+### Lists
 
 Lists between `{*` and `*} `use bullets.
 
@@ -122,9 +133,8 @@ items starting with `+` start with bold text until a dot (`.`), a colon (`:`) or
 *}
 ```
 
+### Code
 
-
-#### Code
 The insertion of code works the same way as in markdown.
 ```
 	`code word`
@@ -134,7 +144,7 @@ The insertion of code works the same way as in markdown.
 ```
 _Note_: For format reasons I've used  ''' , but the correct way is \`\`\`.
 
-#### Fixmes
+### Fixmes
 
 Also, a list of incomplete or wrong parts can be added. For this purpose you can just insert `((FIXME))` to any point of the document, and a link to it will be added in an optional appendix (see [`-f` option](#usage)).
 
@@ -143,7 +153,7 @@ Also, a list of incomplete or wrong parts can be added. For this purpose you can
 ((FIXME)) Correct this formula
 ```
 
-#### Keywords
+### Keywords
 
 Keywords are marked by two exclamation signs. They are  appear in bold text and have a hand glyph pointing at them in the margin of the page. A link to them is added in an optional appendix (see [`-g` option](#usage)).
 
@@ -153,17 +163,29 @@ Keywords are marked by two exclamation signs. They are  appear in bold text and 
 
 _Note_: Keywords doesn't support non ascii characters.
 
-#### Symbol substitution
+### LaTex commands
+
+Latex commands can be used normally inside the notes.
+
+```
+\begin{center}
+This text is centered.
+\end{center}
+The equation is $E=mc^2$
+```
+
+### Symbol substitution
 
 NOG also makes some substitution to commonly used symbols that would be easier to write and understand in a graphical way.
 
-##### Arrows (Text and math mode)
+#### Arrows (Text and math mode)
+
 ```
 -> --> => ==>
 <- <-- <= <==
 <-> <--> <=> <==>
 ```
-##### Function defined by parts (Math mode)
+#### Function defined by parts (Math mode)
 
 ```
 $$
@@ -173,28 +195,15 @@ abs(x) = {{
 }}
 $$
 ```
-#### LaTex commands
+## To do
 
-Latex commands can be used normally inside the notes.
+- List of features pending to be implemented (although they can currently be done via LaTex commands):
+    - Hyperlinks
+    - Tables
+    - Multicolumn text
+    - Boxed text
+    - Graphs/Trees (maybe automatize tikz)
 
-```
-\begin{center}
-This text is centered.
-\end{center}
-```
+## License
 
-
-
-## To Do
-
-- List of features pending to be implemented (they can currently be done via LaTex, but )
-    - hyperlinks
-    - tables
-    - multicolumn text
-    - boxed text
-    - graphs/trees (maybe automatize tikz)
-
-
-```
-
-```
+NOG is licensed under the GPL-3.0 License.
