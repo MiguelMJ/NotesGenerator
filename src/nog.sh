@@ -3,6 +3,10 @@ version="nog 1.1"
 usage='Usage: nog [OPTIONS] [FILES]
 Reads in order a list of files and processes them in several steps to generate a pdf file via *pdflatex*.
 
+-h
+    Display this help message.
+-v
+    Display the software version.
 -a author
     Set the author of the notes.
 -t title
