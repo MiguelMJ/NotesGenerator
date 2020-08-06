@@ -14,12 +14,22 @@ nog - Notes Generator
 
 Reads in order a list of files and processes them in several steps to generate a pdf file via *pdflatex*.
 
-- First step: *nogpre* is called. It determines if the table of contents will be generated and makes the list of **keywords** and **fixme** (see options **-g** and **-f**).
+- First step:  *nogpre* is called. It determines if the table of contents will be generated and makes the list of **keywords** and **fixme** (see options **-g** and **-f**).
 - Second step: *noglex* is called. The translation to LaTex from the files is done.
-- Third step: *pdflatex -draftmode*. Creates the auxiliary files, prior to the pdf itself.
+- Third step:  *pdflatex -draftmode*. Creates the auxiliary files, prior to the pdf itself.
 - Fourth step: *pdflatex*. The pdf is finally generated.
 
+A full description of the features can be found in the *README.md* file distributed with the source code.
+
+It can be found in **https://github.com/MiguelMJ/NotesGenerator>**
+
 # OPTIONS
+
+**-h**
+: Display a help message.
+
+**-v**
+: Display the software version.
 
 **-a** *author*
 : Set the author of the notes and pass it to the \author LaTex command.By default it is empty.
@@ -57,3 +67,12 @@ nog -f MyNotesWIP.txt
 nog -t 10 -g "My long subject"
 
 **Note** that the options always go after the input files.
+
+# COPYRIGHT
+Copyright (C) 2020 Miguel Mejía Jiménez.
+
+This software is licensed under the GPL-3.0 License 
+
+**https://gnu.org/licenses/gpl.html**
+
+This is free software: you are free to change and redistribyte it. There is NO WARRANTY, to the extent permitted by law.
