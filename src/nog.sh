@@ -1,7 +1,7 @@
 #!/bin/bash
 version="nog 1.1"
 usage='Usage: nog [OPTIONS] [FILES]
-Reads in order a list of files and processes them in several steps to generate a pdf file via *pdflatex*.
+Reads in order a list of files and generate a pdf file via pdflatex.
 
 -h
     Display this help message.
@@ -22,8 +22,7 @@ Reads in order a list of files and processes them in several steps to generate a
 -f  
     Add an appendix with the list of fixme.
 -k timeout
-    Kill pdflatex after timeout seconds, if it doesn'"'"'t compile.  By 
-    default it is 5 (seconds).
+    Kill pdflatex after timeout seconds, if it doesn'"'"'t compile.
 -l language
     Sets the language for the LaTex package babel.
 '
