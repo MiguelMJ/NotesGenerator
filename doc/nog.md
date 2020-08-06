@@ -1,4 +1,4 @@
-% NOG(1) nog 1.1
+% NOG(1) nog v1.1
 % Miguel Mejía Jiménez
 % August 2020
 

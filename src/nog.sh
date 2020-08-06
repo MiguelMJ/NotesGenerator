@@ -1,5 +1,5 @@
 #!/bin/bash
-version="nog 1.1"
+version="nog v1.1"
 usage='Usage: nog [OPTIONS] [FILES]
 Reads in order a list of files and generate a pdf file via pdflatex.
 
