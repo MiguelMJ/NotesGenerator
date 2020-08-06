@@ -1,37 +1,84 @@
-# NotesGenerator
-Lotes of syntax sugar for taking lecture notes in Latex.
+# NOG - Notes Generator
+Flex, Bash and PDFLaTex to take easy beautiful notes.
 ***
 #### Contents
 
-***
-### What is NOG?
+- [What is NOG?](#what-is-nog?)
+  - [And why not just markdown and pandoc?](#and-why-not-just-markdown-and-pandoc?)
+- [Usage](#usage)
+- [Build NOG](#build-nog)
+
+## What is NOG?
+
 LaTex is pretty, we can all agree in that. But taking notes in LaTex can be really tedious, too. NOG is a way to simplify this process. It's a pseudo-language which compiles to latex, and then to pdf. It is intended to be some kind of medium point between markdown and latex, something easy to write but extensible and customizable.
 
-### Dependencies
-- pdflatex 
-- Some LaTex packages (check them in the nog.sh file)
- 
-### Usage
+### And why not just markdown and pandoc?
+
+Writing notes in markdown and translating to LaTex with pandoc is great, and you should also try it. But NOG doesn't intend to be a format translator. Its purpose is to both simplify part of the LaTex syntax and unify some aspects that may require some boilerplate LaTex code, like the section tocs or the glossary, for example.
+
+And, of course, another equally important reason is the possibility of extending NOG with new rules in Flex or LaTex commands. In the end the idea is to have nicer results with less typing.
+
+## Usage
+
 `nog [options] <input_files>`
 
  Options | Description 
 ---|---
-`-a <author>`| Sets the author of the notes
-`-t <title>`| Sets the title of the notes. Default is 'Notes'
-`-d <date>`| Sets the author of the notes
-`-o <output_file>`| Specifies name of output file. Default is 'Notes.pdf'
-`-s, --save`| Saves all temporal files (including the `.tex`) in a directory called`nogtemp`
-`-g`| Adds an appendix with the glossary
-`-f`| Adds an appendix with the list of fixme
-`-k <seconds>`| Sets how much to wait until killing `pdflatex` if it doesn't compile
-`-l <language>`| Sets the language for the package `babel`
+`-h`| Display a help message. 
+`-v`| Display the version of the software. 
+`-a <author>`| Set the author of the notes. It is empty by default. 
+`-t <title>`| Set the title of the notes. It is 'Notes' by default. 
+`-d `| Omit the date in the title. 
+`-o <output_file>`| Specify name of output file without the pdf extension. It is 'Notes' by default (produces 'Notes.pdf'), 
+`-s, --save`| Save all temporal files (including the `.tex`) in a directory called`nogtemp`. 
+`-g`| Add an appendix with the glossary. 
+`-f`| Add an appendix with the list of fixme. 
+`-k <seconds>`| Set how much to wait until killing `pdflatex` if it doesn't compile. 
+`-l <language>`| Set the language for the package `babel`. 
 
-### How does it work
-#### No more escaping for these
+## Build NOG
+
+The three targets of the makefile are quite straightforward: 
+
+- `make all` to compile the binaries and the man page.
+- `make install` to install the binaries and the man page.
+- `make uninstall`  to uninstall the binaries and the man page.
+
+If you want to install NOG:
+
+```
+$ cd path/to/the/project
+$ sudo make install
+...
+$ nog -v
+nog 1.1
+```
+
+If you just want to build it, without installing:
+
+```
+$ cd path/to/the/project
+$ make
+...
+$ ./nog -v
+nog 1.1
+```
+
+## How does it work
+
+The files passed to the `nog` command are processed in order, so you could think of them as a single concatenated file. Their content are passed to the body of the LaTex document.
+
+### Features
+
+#### No more useless escaping
+
 There are some characters in LaTex that must be escaped when not in math mode. NOG escapes them in the context where it is clear that they must be escaped:
 - `_` is escaped everywhere outside math mode.
 - `$` is escaped within the name of units, subunits and subsubunits, keywords and snippets.(see below)
-#### New sectioning
+#### Sectioning with Units
+
+To keep it simple, NOG uses just three levels of sectioning: _Unit_, _Unit section_ and _Unit subsection_. The main Table of Contents contains just the Units, and each Unit contains another ToC with its unit sections and unit subsections.
+
 ```
 Unit
 ****
@@ -40,82 +87,114 @@ Unit section
 Unit subsection
 ---------------
 ```
-When any of the following is used, the table of contents is automatically generated, to the unit section level. Then, at the beginning of each unit, another table of contents of that particular unit is generated to the level of unit subsection.
 #### Emphasis
+
+Double asterisks for bold text and double underscore for italic test to mark keywords.
+
 ```
 **bold**
 __italic__
-!!keyword!!
 ```
-Keywords not only make the word bold, but have a hand glyph pointing to them in the margin and are included in the glossary, if the `-g` option is used. 
-
 #### Footnotes
+
+Footnotes use arabic numbers, restarting in each page.
+
 ```
 _(footnote)_
 ```
-Footnotes use arabic numbers, restarting in each page.
 #### Lists
-Lists can use bullets, when specified between `{*` and `*}`; numbers, when specidied between `{#` and `#}`; or none of them, when specified between `{.` and `.}`.
 
-Then, each item can be pointed with `-`, with no other efect than writting he bullet or number, or with `+`, in wich case the text will be bold until a `.`, `:` or a new line.
+Lists between `{*` and `*} `use bullets.
+
+Lists between `{#` and `#} `use numbers.
+
+Lists between `{.` and `.}` use none.
+
+Items starting with `-` are normal items.
+
+items starting with `+` start with bold text until a dot (`.`), a colon (`:`) or a new line.
+
+```
+{*
+- first item
+- second item
++ important: this is another item
+*}
+```
+
+
 
 #### Code
+The insertion of code works the same way as in markdown.
 ```
-    `inline code`
-    ```<br>
-    Code without syntax highlight
-    ```
-    ```<language>
-    Code with syntax highlight
-    ```
+	`code word`
+    '''[language]
+    code block
+    '''
+```
+_Note_: For format reasons I've used  ''' , but the correct way is \`\`\`.
+
+#### Fixmes
+
+Also, a list of incomplete or wrong parts can be added. For this purpose you can just insert `((FIXME))` to any point of the document, and a link to it will be added in an optional appendix (see [`-f` option](#usage)).
+
+```
+((FIXME)) Complete this section
+((FIXME)) Correct this formula
 ```
 
-{*
-- un elemento
-- otro elemento
-+ esto en negrita: esto ya no
-+ nombre: descripcion
-*}
+#### Keywords
 
-{#
-- un elemento numerado
-- otro elemento numerado
-+ sirve: dos puntos
-+ tambien. uno solo
-+ si no, hasta un salto de linea
-#}
+Keywords are marked by two exclamation signs. They are  appear in bold text and have a hand glyph pointing at them in the margin of the page. A link to them is added in an optional appendix (see [`-g` option](#usage)).
 
-((FIXME)) Aquí va algo que requiere revisión en los apuntes
-
-((code:lenguaje))
-[{
-codigo en lenguaje
-}]
 ```
-En modo matemáticas (entre $ o $$)
-----------------------------------
+!!keyword!!
 ```
-función definida a trozos = {{
-    caso primero \\
-    caso segundo
-}}
 
-corchetes sintácticos [[ ]]
-```
-Otros
------
+_Note_: Keywords doesn't support non ascii characters.
+
+#### Symbol substitution
+
+NOG also makes some substitution to commonly used symbols that would be easier to write and understand in a graphical way.
+
+##### Arrows (Text and math mode)
 ```
 -> --> => ==>
 <- <-- <= <==
 <-> <--> <=> <==>
 ```
-### To Do
-- First of all, this documentation needs to be improved, starting by translating all to english.
-- Then, there should be some examples included, so I'll try to upload som in coming updates.
-- And of course, rearrange the contents of this readme file and go deeper into details, but, yes, time.
-- Also, here's a list of features pending to be implemented
+##### Function defined by parts (Math mode)
+
+```
+$$
+abs(x) = {{
+	-x & if x < 0 \\
+	 x & otherwise
+}}
+$$
+```
+#### LaTex commands
+
+Latex commands can be used normally inside the notes.
+
+```
+\begin{center}
+This text is centered.
+\end{center}
+```
+
+
+
+## To Do
+
+- List of features pending to be implemented (they can currently be done via LaTex, but )
+    - hyperlinks
     - tables
     - multicolumn text
     - boxed text
-    - graphs/trees(? maybe some automatic tikz stuff)
+    - graphs/trees (maybe automatize tikz)
 
+
+```
+
+```
