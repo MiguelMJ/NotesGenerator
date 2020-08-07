@@ -1,5 +1,6 @@
 %{
 #include <iostream>
+#include <fstream>
 #include <algorithm>
 #include <string>
 using namespace std;
@@ -58,6 +59,8 @@ bool footnote=false;
 }
 
 ^#(?i:pre)" "*$  { BEGIN(PREPROCESSOR); }
+
+
 
 ^.*\n\*\*\*+      { string str = string(yytext);
                     str = str.substr(0,str.find("\n"));
@@ -123,9 +126,38 @@ bool footnote=false;
                     static int fm=0;
                     cout << "\\fixme\\label{fixme" << fm++ << "} "; 
                    }
-^"```".*$   {   cout << endl << "\\lstset{language=" << trim(yytext,3,0) << "}" << endl;
-                cout << "\\begin{lstlisting}"; 
-                BEGIN(CODE); 
+^"```".*$   {   
+                string spec = trim(yytext,3,0);
+                string lang, file = spec;
+                if(spec.substr(0,5) == "file:"){
+                    spec = spec.substr(5);
+                    size_t lastcolon = spec.find_last_of(':');
+                    if(lastcolon != string::npos){
+                        file = spec.substr(0,lastcolon);
+                        lang = spec.substr(lastcolon+1);
+                    }
+                    ifstream fin(file);
+                    if(fin.good()){
+                        cout << endl << "\\lstset{language=" << lang << "}" << endl;
+                        cout << "\\begin{lstlisting}" << endl; 
+                        string line;
+                        getline(fin, line);
+                        while(!fin.eof()){
+                            cout << line << endl;
+                            getline(fin, line);
+                        }
+                    }else{
+                        static int filefm=0;
+                        cout << "\\fixme\\label{fixme" << filefm++ << "} "; 
+                        cout << file << " not found" << endl;
+                        cout << "\\begin{lstlisting}" << endl; 
+                    }
+                    fin.close();
+                }else{
+                    cout << endl << "\\lstset{language=" << lang << "}" << endl;
+                    cout << "\\begin{lstlisting}" << endl; 
+                }
+                BEGIN(CODE);                 
             }
 
 "{*"" "*\n*     { cout << "\\begin{itemize}"; itemslevel++; }
