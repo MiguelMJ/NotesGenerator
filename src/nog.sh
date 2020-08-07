@@ -1,5 +1,5 @@
 #!/bin/bash
-version="nog v1.1"
+version="nog v1.2 (dev0)"
 usage='Usage: nog [OPTIONS] [FILES]
 Reads in order a list of files and generate a pdf file via pdflatex.
 
@@ -26,33 +26,66 @@ Reads in order a list of files and generate a pdf file via pdflatex.
 -l language
     Sets the language for the LaTex package babel.
 '
-
-# PRINT BASIC USAGE
+##
+# FUNCTION TO READ CONFIGURATION FILE.
+##
+config(){
+    val=$(grep -Ei "^$1=" .nogconfig 2>/dev/null | head -n 1 | cut -d '=' -f 2-)
+    printf "%s" "$val"
+    [ ! -z "$val" ]
+    return $?
+}
+##
+# FUNCTION TO ADD INPUT FILE TO ARGUMENTS.
+##
+declare files
+addfile(){
+    files="$files $(printf %q "$*")"
+}
+##
+# IN A CALL WITHOUT ARGUMENTS, SEARCH AN INPUT FILE IN THE OPTIONAL
+# CONFIGURATION FILE. IF THERE IS NONE, PRINT VERSION, USAGE AND EXIT
+# WITH AN ERROR.
+##
 if [ $# -eq 0 ]; then
-    echo -e "$version\n$usage"
-    exit 0
+    if [ -f '.nogconfig' ]; then
+        input=$(config input)
+        if [ -z "$input" ]; then
+            echo -e "$version\n$usage"
+            exit 2
+        else
+            addfile $input
+        fi
+        
+    else
+        echo -e "$version\n$usage"
+        exit 2
+    fi
 fi
 
-# DEFAULT VALUES FOR PARAMETERS
 
-title="Notes"
-author=""
-date="\\date{}"
-file="$title"
+##
+# ASSIGN VALUES TO THE PARAMETERS, BY CONFIGURATION OR DEFAULT.
+##
+title="$(config title || echo "Notes")"
+author="$(config author)"
+date="\\date{$(config date)}"
+file="$(config file || echo $title)"
 preappendices=""
-glossary=""
-fixmelist=""
-timeout="timeout 5"
-language="spanish"
+glossary="$(config glossary)"
+glossary_name="$(config glossary_name || echo KEY WORDS)"
+fixmelist="$(config fixme)"
+fixmelist_name="$(config fixme_name || echo FIXME)"
+timeout="timeout $(config timeout || echo 5)"
+language="$(config language || echo english)"
+save="$(config save)"
 
-# TEMPORAL FILES
-
-nogtempdir=$(mktemp -d)
-nogtemptex="$nogtempdir/nogtemp.tex"
-
-# OPTION PARSING
-
-while [ "${1:0:1}" == "-" ]
+##
+# PARSE ARGUMENTS. ARGUMENTS THAT ARE NOT OPTIONS (DOESN'T START WITH 
+# HYPEN) ARE CONSIDERED INPUT FILES. THESE OPTIONS MAY OVERRIDE VALUES
+# FROM THE CONFIGURATION FILE.
+##
+while [ $# -ne 0 ]
 do
     case "$1" in 
     -v)
@@ -83,46 +116,73 @@ do
         shift
     ;;
     -f)
-        fixmelist="
-\\section{FIXME}
-\\noindent\\fixmelist
-"
-        preappendices="
-\\newpage
-"
+        fixmelist="yes"
     ;;
     -g)
-        glossary="
-\\section{Conceptos clave}
-\\noindent\\myglossary
-"
-        preappendices="
-\\newpage
-"
+        glossary="yes"
     ;;
     -o)
         file="$2"
         shift
     ;;
     --save|-s)
-        save="true"
+        save="yes"
     ;;
-    *)
+    -*)
         echo Unknown option $1
         exit 1
+    ;;
+    *)
+        addfile $1
     ;;
     esac
     shift
 done
 
-if [ $# == 0 ]
+##
+# CONSTRUCT THE APPENDICES IF SPECIFIED IN THE OPTIONS
+##
+if [ "${fixmelist,,}" == "yes" ]; then
+    fixmelist="
+\\section{$fixmelist_name}
+\\noindent\\fixmelist
+"
+        preappendices="
+\\newpage
+"
+fi
+
+if [ "${glossary,,}" == "yes" ]; then
+        glossary="
+\\section{$glossary_name}
+\\noindent\\myglossary
+"
+        preappendices="
+\\newpage
+"
+fi
+
+##
+# CHECK IF ANY INPUT FILE HAS BEEN SPECIFIED, ONE WAY OR ANOTHER. IF NOT,
+# EXIT WITH AN ERROR
+##
+if [ -z "$files" ]
 then
     echo Provide input file
     exit 1
 fi
-#
+
+##
+# CREATE TEMPORAL FILES
+##
+nogtempdir=$(mktemp -d)
+nogtemptex="$nogtempdir/nogtemp.tex"
+
+
+
+##
 # FIRST PART OF THE SKELETON
-#
+##
 cat << _END_ > "$nogtemptex"
 \documentclass{article}
 
@@ -140,7 +200,6 @@ cat << _END_ > "$nogtemptex"
 \usepackage{listings}   % FOR CODE SYNTAX HIGHLIGHT
 \usepackage{xcolor}     % MORE COLOR
 \usepackage{perpage}    % FOR FOOTNOTES NUMBERING
-% \usepackage{cancel}     % ENABLING \cancel COMMANDS IN MATHMODE
 \usepackage{tikz}       % GRAPHS AND DRAWINGS
 \usepackage{forest}     % FOR SCHEMES
 \usepackage[hidelinks]{hyperref} % FOR LINKS
@@ -148,9 +207,6 @@ cat << _END_ > "$nogtemptex"
 \usepackage{appendix}   % FOR THE GLOSSARY
 \usepackage{enumitem}   % TO CHANGE ITEMS IN ITEMIZES
 \usepackage{multicol}   % TO SEPARATE TEXT IN COLUMNS
-% \usepackage{stmaryrd}   % TO USE SYNTACTIC BRACKETS
-% \usepackage{amsmath}    % EMBEDDED TEXT IN MATH MODE
-
 
 % SOME COLORS DEFINED
 
@@ -274,8 +330,14 @@ $date
 
 _END_
 
-nogpre $* >> "$nogtemptex"
+##
+# STEP ONE: PREPROCESSOR
+##
+nogpre $files >> "$nogtemptex"
 
+##
+# SECOND PART OF THE SKELETON
+##
 cat << _END_ >> "$nogtemptex"
 
 %% END OF PREPROCESSOR CODE
@@ -285,8 +347,14 @@ cat << _END_ >> "$nogtemptex"
     \myindex
 _END_
 
-noglex $* >> "$nogtemptex"
+##
+# STEP TWO: LEXER
+##
+noglex $files >> "$nogtemptex"
 
+##
+# THIRD PART OF THE SKELETON
+##
 cat << _END_ >> "$nogtemptex"
 
 $preappendices
@@ -298,6 +366,9 @@ $fixmelist
 \end{document}
 _END_
 
+##
+# STEPS THREE AND FOUR: PDFLATEX
+##
 $timeout pdflatex -draftmode -output-directory "$nogtempdir" "$nogtemptex" > /dev/null 2>&1 &&
 pdflatex -output-directory "$nogtempdir" "$nogtemptex" > /dev/null 2>&1 &&
 mv "$nogtempdir/"*"pdf" "./$file.pdf" > /dev/null &&
@@ -306,7 +377,10 @@ echo "Latex Errors:" &&
 grep '^!' "$nogtempdir/nogtemp.log" &&
 exit 1
 
-if [ ! -z "$save"  ]
+##
+# SAVE THE TEMPORAL FILES IF IT WAS REQUESTED
+##
+if [ "${save,,}" == "yes"  ]
 then
     echo "Saving temporal files"
     mv "$nogtempdir" nogtmp
