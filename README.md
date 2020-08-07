@@ -3,8 +3,8 @@ Flex, Bash and PDFLaTex to take easy beautiful notes.
 ***
 #### Contents
 
-- [What is NOG?](#what-is-nog?)
-  - [And why not just markdown and pandoc?](#and-why-not-just-markdown-and-pandoc?)
+- [What is NOG?](#what-is-nog)
+  - [And why not just markdown and pandoc?](#and-why-not-just-markdown-and-pandoc)
 - [Usage](#usage)
 - [Build NOG](#build-nog)
 - [Features](#features)
