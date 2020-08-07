@@ -26,6 +26,20 @@ Reads in order a list of files and generate a pdf file via pdflatex.
 -l language
     Sets the language for the LaTex package babel.
 '
+defaultconfigfile='# NOG v1.2
+INPUT=
+TITLE=Notes
+AUTHOR=
+DATE=
+FILE=Notes
+GLOSSARY=NO
+GLOSSARY_NAME=KEY WORDS
+FIXME=NO
+FIXME_NAME=FIXME
+TIMEOUT=5
+LANGUAGE=english
+SAVE=NO
+'
 ##
 # FUNCTION TO READ CONFIGURATION FILE.
 ##
@@ -78,6 +92,7 @@ fixmelist="$(config fixme)"
 fixmelist_name="$(config fixme_name || echo FIXME)"
 timeout="timeout $(config timeout || echo 5)"
 language="$(config language || echo english)"
+language=${language,,}
 save="$(config save)"
 
 ##
@@ -128,6 +143,16 @@ do
     --save|-s)
         save="yes"
     ;;
+    -c)
+        if [ ! -f ".nogconfig" ]; then
+            echo "Generating configuration file ./.nogconfig"
+            echo "$defaultconfigfile" > .nogconfig
+            exit 0
+        else
+            echo "Configurationi file ./.nogconfig already exists in this directory"
+            exit 3
+        fi
+    ;;
     -*)
         echo Unknown option $1
         exit 1
@@ -150,6 +175,8 @@ if [ "${fixmelist,,}" == "yes" ]; then
         preappendices="
 \\newpage
 "
+else
+    fixmelist=""
 fi
 
 if [ "${glossary,,}" == "yes" ]; then
@@ -160,6 +187,8 @@ if [ "${glossary,,}" == "yes" ]; then
         preappendices="
 \\newpage
 "
+else
+    glossary=""
 fi
 
 ##
@@ -383,10 +412,10 @@ exit 1
 if [ "${save,,}" == "yes"  ]
 then
     echo "Saving temporal files"
+    rm -f -r nogtmp
     mv "$nogtempdir" nogtmp
 else
     # not actually necessary, but meh
-    echo "Deleting temporal files"
     rm -r "$nogtempdir"
 fi
 echo "Done"
