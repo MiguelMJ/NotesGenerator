@@ -33,8 +33,6 @@ bool footnote=false;
     
     "{{"    { cout << "\\left\\{\\begin{array}{lll}"; }
     "}}"    { cout << "\\end{array}\\right."; }
-    "[["    { cout << "\\llbracket "; }
-    "]]"    { cout << "\\rrbracket "; }
     "->"    { cout << "\\rightarrow " ; }
     "-->"   { cout << "\\longrightarrow " ; }
     "=>"    { cout << "\\Rightarrow " ; }
