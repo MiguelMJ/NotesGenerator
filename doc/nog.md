@@ -26,10 +26,13 @@ It can be found in **https://github.com/MiguelMJ/NotesGenerator**
 # OPTIONS
 
 **-h**
-: Display a help message.
+: Display a help message and exit.
 
 **-v**
-: Display the software version.
+: Display the software version and exit.
+
+**-c**
+: Generate a configuration file and exit. The file is *.nogconfig*.
 
 **-a** *author*
 : Set the author of the notes and pass it to the \author LaTex command.By default it is empty.

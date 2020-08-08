@@ -4,9 +4,11 @@ usage='Usage: nog [OPTIONS] [FILES]
 Reads in order a list of files and generate a pdf file via pdflatex.
 
 -h
-    Display this help message.
+    Display this help message and exit.
 -v
-    Display the software version.
+    Display the software version and exit.
+-c
+    Generate a configuration file and exit.
 -a author
     Set the author of the notes.
 -t title
