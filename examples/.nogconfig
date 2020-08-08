@@ -1,0 +1,15 @@
+# NOG v1.2
+INPUT=example1
+TITLE=Example Notes
+AUTHOR=Miguel M. J.
+DATE=
+FILE=examplenotes
+GLOSSARY=YES
+GLOSSARY_NAME=Glossary
+FIXME=YES
+FIXME_NAME=To fix
+TIMEOUT=5
+LANGUAGE=english
+SAVE=no
+ONLY_TEX=NO
+ALSO_TEX=yes

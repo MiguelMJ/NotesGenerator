@@ -1,0 +1,55 @@
+#pre
+
+\usepackage{amssymb}
+
+#end
+
+First unit
+**********
+
+In this unit we will be talking about !!code!! !
+
+Our first code
+==============
+
+The following code is !!imported!! from `helloworld.cpp`
+
+```file:helloworld.cpp:C++
+```
+No we will import from `nonexistingfile.js`
+```file:nonexistingfile.js:javascript
+```
+
+Now another language
+====================
+
+This code is not imported but !!embedded!!.
+```Java
+static void main (String[] args){
+    System.out.println("Hello world")
+}
+```
+
+Second unit
+***********
+
+This unit has no sections, so it has no table of content.
+
+Lets define the __absolute value__ function:
+$$
+abs(x) = {{
+    x & if x > 0\\
+    -x & if x <= 0
+}}
+$$
+
+Some examples of the function:
+\begin{center}
+\begin{tabular}{c c c c}
+
+ $abs$: & $\mathbb{R}$ & -> & $\mathbb{R}$  \\
+  & 3 & -> & 3  \\ 
+  & -5 & -> & 5  \\
+
+\end{tabular}
+\end{center}
