@@ -20,41 +20,36 @@ map<int, vector<string> > kwi;// keyword index
 %{
 // string sectionNumber();
 %}
-<INITIAL>{
-    [[:blank:]\n]    {}
-    ^#(?i:pre)" "*$  { BEGIN(INCLUDE); }
-    ^#.*$            {}
-    .                { BEGIN(BODY); }
-}
 <INCLUDE>{
-    ^#(?i:end)" "*$  { BEGIN(BODY); }
+    ^#(?i:end)" "*$  { BEGIN(INITIAL); }
     .|\n             { cout << yytext; }
 }
-<BODY>{
-    
-    ^.*\n\*\*\*+      { u++; /*us=0; uss=0*/;
-                        string str(yytext);
-                        un.push_back(str.substr(0,str.find('\n')+1));
-                      }
-    ^.*\n"=="=+       { /*us++; uss=0*/; }
-    ^.*\n"--"-+       { /*uss++;*/ }
 
-    "!!"([^!\n]"!"?)*"!!"   {
-                                string kw(yytext);
-                                kw = kw.substr(2,yyleng-4);
-                                std::transform(kw.begin(), kw.end(), kw.begin(),
-                                    [](unsigned char c){ return std::tolower(c); });
-                                // kwi[sectionNumber()].push_back(kw);
-                                kwi[u-1].push_back(kw);
-                            }
-    "(("(?i:fixme)"))" { 
-                        stringstream ss;
-                        ss << "fixme" << fixme.size();
-                        fixme[u-1].push_back(ss.str());
-                       }
+^#(?i:pre)" "*$  { BEGIN(INCLUDE); }
 
-    .|\n                    {}
-}
+^.*\n\*\*\*+      { u++; /*us=0; uss=0*/;
+                    string str(yytext);
+                    un.push_back(str.substr(0,str.find('\n')+1));
+                    }
+^.*\n"=="=+       { /*us++; uss=0*/; }
+^.*\n"--"-+       { /*uss++;*/ }
+
+"!!"([^!\n]"!"?)*"!!"   {
+                            string kw(yytext);
+                            kw = kw.substr(2,yyleng-4);
+                            std::transform(kw.begin(), kw.end(), kw.begin(),
+                                [](unsigned char c){ return std::tolower(c); });
+                            // kwi[sectionNumber()].push_back(kw);
+                            kwi[u-1].push_back(kw);
+                        }
+"(("(?i:fixme)"))" { 
+                    stringstream ss;
+                    ss << "fixme" << fixme.size();
+                    fixme[u-1].push_back(ss.str());
+                    }
+
+.|\n                    {}
+
 
 %%
 /*string sectionNumber(){
