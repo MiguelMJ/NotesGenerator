@@ -21,7 +21,7 @@ Reads in order a list of files and processes them in several steps to generate a
 
 A full description of the features can be found in the *README.md* file distributed with the source code.
 
-It can be found in **https://github.com/MiguelMJ/NotesGenerator>**
+It can be found in **https://github.com/MiguelMJ/NotesGenerator**
 
 # OPTIONS
 
@@ -71,8 +71,6 @@ nog -l english -t "Advanced Calculus" -a "Miguel M. J." -o "calculus" lesson1.tx
 nog -f MyNotesWIP.txt
 
 nog -t 10 -g "My long subject"
-
-**Note** that the options always go after the input files.
 
 # COPYRIGHT
 Copyright (C) 2020 Miguel Mejía Jiménez.
