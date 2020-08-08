@@ -25,8 +25,8 @@ bool footnote=false;
     .|\n             { }
 }
 <CODE>{
-    [[:print:]]{-}[\}\]]+    { cout << yytext; }
-    ^"```"$        { cout << "\\end{lstlisting}"; BEGIN(INITIAL); }
+    ^"```"$         { cout << "\\end{lstlisting}"; BEGIN(INITIAL); }
+    [[:print:]]    { cout << yytext; }
     .           {}
 }
 <MATH>{
@@ -105,8 +105,8 @@ bool footnote=false;
                             transform(str.begin(),str.end(),str.begin(),[](unsigned char c){ return tolower(c);});
                             cout << "\\label{kw:"<< str <<"}"; 
                            }
-"`"([^\]\n]"]"?)*"`"     {
-                            string str = trim(yytext,2,2);
+`([^\`\n]`?)*`     {
+                            string str = trim(yytext,1,1);
                             prepare(str);
                             cout << "\\codeword{" << str << "}";
                            }
@@ -128,7 +128,7 @@ bool footnote=false;
                    }
 ^"```".*$   {   
                 string spec = trim(yytext,3,0);
-                string lang, file = spec;
+                string lang = spec, file = spec;
                 if(spec.substr(0,5) == "file:"){
                     spec = spec.substr(5);
                     size_t lastcolon = spec.find_last_of(':');
@@ -208,9 +208,8 @@ bool footnote=false;
 "<="    { cout << "$\\Leftarrow$ " ; }
 "<=="   { cout << "$\\Longleftarrow$ " ; }
 
-\n\n?           { cout << "\n\n\\noindent "; }
-\n+"  "[^- ]    { cout << "\n\n "; }
-\n\n\n+         { cout << "\\\\\n\n\\noindent "; }
+\n\n?        { cout << "\n\n"; }
+\n+"  "[^-+]    { cout << "\n\n\\hspace{5 mm}" << *string(yytext).rbegin(); }
 .            { cout << yytext; }
 
 
