@@ -43,9 +43,6 @@ It can be found in **https://github.com/MiguelMJ/NotesGenerator>**
 **-o** *file*
 : Name of the output file without the pdf extension. By default it is "Notes".
 
-**-s**, **--save**
-: Save temporal files (including the .tex) in a directory called **nogtmp**. This option is useful if you want to look for the LaTex errors yourself or edit the output LaTex in an editor of your choice.
-
 **-g**
 : Add an appendix with the glossary, which contains a list of the **keywords** of each **unit**.
 
@@ -57,6 +54,15 @@ It can be found in **https://github.com/MiguelMJ/NotesGenerator>**
 
 **-l** *language*
 : Sets the language for the LaTex package babel.
+
+**-s**, **--save**
+: Save temporal files (including the .tex) in a directory called **nogtmp**. This option is useful if you want to look for the LaTex errors yourself or edit the output LaTex in an editor of your choice.
+
+**--only-tex**
+: Do not generate the .pdf, only the .tex file. Invalidates the **--also-tex** option.
+
+**--also-tex**
+: Generate the .tex, besides the .pdf. It has no effect with the **--only-tex** option.
 
 # EXAMPLES
 

@@ -14,9 +14,7 @@ Reads in order a list of files and generate a pdf file via pdflatex.
 -d  
     Add the date to the generated notes.
 -o file
-    Name of the output file without the pdf extension.
--s, --save
-    Save temporal files (including the .tex).
+    Name of the output file without the .pdf extension.
 -g  
     Add an appendix with the glossary.
 -f  
@@ -25,6 +23,12 @@ Reads in order a list of files and generate a pdf file via pdflatex.
     Kill pdflatex after timeout seconds, if it doesn'"'"'t compile.
 -l language
     Sets the language for the LaTex package babel.
+-s, --save
+    Save all the temporal files, including the .tex.
+--only-tex
+    Do not generate the .pdf, only the .tex file.
+--also-tex
+    Generate the .tex, besides the .pdf.
 '
 defaultconfigfile='# NOG v1.2
 INPUT=
@@ -39,6 +43,8 @@ FIXME_NAME=FIXME
 TIMEOUT=5
 LANGUAGE=english
 SAVE=NO
+ONLY_TEX=NO
+ALSO_TEX=NO
 '
 ##
 # FUNCTION TO READ CONFIGURATION FILE.
@@ -56,27 +62,6 @@ declare files
 addfile(){
     files="$files $(printf %q "$*")"
 }
-##
-# IN A CALL WITHOUT ARGUMENTS, SEARCH AN INPUT FILE IN THE OPTIONAL
-# CONFIGURATION FILE. IF THERE IS NONE, PRINT VERSION, USAGE AND EXIT
-# WITH AN ERROR.
-##
-if [ $# -eq 0 ]; then
-    if [ -f '.nogconfig' ]; then
-        input=$(config input)
-        if [ -z "$input" ]; then
-            echo -e "$version\n$usage"
-            exit 2
-        else
-            addfile $input
-        fi
-        
-    else
-        echo -e "$version\n$usage"
-        exit 2
-    fi
-fi
-
 
 ##
 # ASSIGN VALUES TO THE PARAMETERS, BY CONFIGURATION OR DEFAULT.
@@ -94,7 +79,15 @@ timeout="timeout $(config timeout || echo 5)"
 language="$(config language || echo english)"
 language=${language,,}
 save="$(config save)"
-
+input="$(config input)"
+only_tex="$(config only_tex)"
+also_tex="$(config also_tex)"
+if [ -z "$input" ]; then
+    echo -e "$version\n$usage"
+    exit 2
+else
+    addfile $input
+fi
 ##
 # PARSE ARGUMENTS. ARGUMENTS THAT ARE NOT OPTIONS (DOESN'T START WITH 
 # HYPEN) ARE CONSIDERED INPUT FILES. THESE OPTIONS MAY OVERRIDE VALUES
@@ -152,6 +145,12 @@ do
             echo "Configurationi file ./.nogconfig already exists in this directory"
             exit 3
         fi
+    ;;
+    --only-tex)
+        only_tex="yes"
+    ;;
+    --also-tex)
+        also_tex="yes"
     ;;
     -*)
         echo Unknown option $1
@@ -322,6 +321,7 @@ cat << _END_ > "$nogtemptex"
 
 % COMMANDS FOR UNIFYING STYLE
 
+\setlength{\parindent}{0pt} % NO MORE INDENTATION
 \newcommand{\unit}[1]{\newpage\section{#1}\secttoc}
 \newcommand{\unitsection}[1]{\subsection{#1}}
 \newcommand{\unitsubsection}[1]{\subsubsection{#1}}
@@ -398,14 +398,22 @@ _END_
 ##
 # STEPS THREE AND FOUR: PDFLATEX
 ##
-$timeout pdflatex -draftmode -output-directory "$nogtempdir" "$nogtemptex" > /dev/null 2>&1 &&
-pdflatex -output-directory "$nogtempdir" "$nogtemptex" > /dev/null 2>&1 &&
-mv "$nogtempdir/"*"pdf" "./$file.pdf" > /dev/null &&
-echo "$file.pdf succesfully generated" ||
-echo "Latex Errors:" &&
-grep '^!' "$nogtempdir/nogtemp.log" &&
-exit 1
-
+if [ "${only_tex,,}" == "yes" ]; then
+    cp "$nogtemptex" "$file.tex"
+    echo "$file.tex succesfully generated"
+else
+    if [ "${also_tex,,}" == "yes" ]; then
+        cp "$nogtemptex" "$file.tex"
+        echo "$file.tex succesfully generated"
+    fi
+    $timeout pdflatex -draftmode -output-directory "$nogtempdir" "$nogtemptex" > /dev/null 2>&1 &&
+    pdflatex -output-directory "$nogtempdir" "$nogtemptex" > /dev/null 2>&1 &&
+    mv "$nogtempdir/"*"pdf" "./$file.pdf" > /dev/null &&
+    echo "$file.pdf succesfully generated" ||
+    echo "Latex Errors:" &&
+    grep '^!' "$nogtempdir/nogtemp.log" &&
+    exit 1
+fi
 ##
 # SAVE THE TEMPORAL FILES IF IT WAS REQUESTED
 ##
