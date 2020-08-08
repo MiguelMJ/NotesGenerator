@@ -88,7 +88,9 @@ nog v1.2
 
 If `nog` is run in a directory that contains a `.nogconfig` file, then uses the values specified in it as options. Nonetheless, **options passed via command line will override the ones found in the command line**.
 
-The options of the `.noconfig` are case insensitive and empty values are ignored.
+The options of the `.nogconfig` are case insensitive and empty values are ignored.
+
+[`nog -c`](#usage) generates a `.nogconfig` file, if there is none in the working directory.
 
 | Configuration          | Description                       |
 | ---------------------- | --------------------------------- |
