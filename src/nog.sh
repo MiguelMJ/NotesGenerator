@@ -84,12 +84,7 @@ save="$(config save)"
 input="$(config input)"
 only_tex="$(config only_tex)"
 also_tex="$(config also_tex)"
-if [ -z "$input" ]; then
-    echo -e "$version\n$usage"
-    exit 2
-else
-    addfile $input
-fi
+
 ##
 # PARSE ARGUMENTS. ARGUMENTS THAT ARE NOT OPTIONS (DOESN'T START WITH 
 # HYPEN) ARE CONSIDERED INPUT FILES. THESE OPTIONS MAY OVERRIDE VALUES
@@ -165,6 +160,15 @@ do
     shift
 done
 
+##
+# CHECK IF ANY INPUT WAS SPCIFIED
+##
+if [ ! -z "$input" ]; then
+    addfile $input
+elif [ -z "$files" ]; then
+    echo -e "$version\n$usage"
+    exit 2
+fi
 ##
 # CONSTRUCT THE APPENDICES IF SPECIFIED IN THE OPTIONS
 ##
