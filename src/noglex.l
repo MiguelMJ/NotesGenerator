@@ -103,7 +103,7 @@ bool footnote=false;
                             transform(str.begin(),str.end(),str.begin(),[](unsigned char c){ return tolower(c);});
                             cout << "\\label{kw:"<< str <<"}"; 
                            }
-`([^\`\n]`?)*`     {
+`([^`])*`     {
                             string str = trim(yytext,1,1);
                             prepare(str);
                             cout << "\\codeword{" << str << "}";
