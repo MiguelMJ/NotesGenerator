@@ -51,8 +51,9 @@ NOG | LaTex
 ![](examples/comparison_example/example_nog.png) | ![](examples/comparison_example/example_tex.png)
 
 And this the body of the result document:
-![](examples/comparison_example/result-2.png)
-
+<kbd>
+<img src="examples/comparison_example/result-2.png">
+</kbd>
 To see more check the [examples folder](examples)
 
 ## Usage
