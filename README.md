@@ -40,11 +40,20 @@ LaTex is pretty, we can all agree in that. But taking notes in LaTex can be real
 
 ### And why not just markdown and pandoc?
 
-Writing notes in markdown and translating to LaTex with pandoc is great, and you should also try it. But NOG doesn't intend to be a format translator. Its purpose is to both simplify part of the LaTex syntax and unify some aspects that may require some boilerplate LaTex code, like the section tocs or the glossary, for example.
+Writing notes in Markdown and translating to LaTex with pandoc is great, and you should also try it. But **NOG doesn't intend to be a format translator. Its purpose is to both simplify part of the LaTex syntax and unify some aspects that may require some boilerplate LaTex code**, like the section tocs or the glossary, for example.
 
 And, of course, another equally important reason is the possibility of extending NOG with new rules in Flex or LaTex commands. In the end the idea is to have nicer results with less typing.
 
-There are some examples in the [examples folder](examples)
+This is a comparison side by side of some notes with NOG syntax and the equivalent in LaTex (not taking on count the preamble!):
+
+NOG | LaTex
+---|---
+![](examples/comparison_example/example_nog.png) | ![](examples/comparison_example/example_tex.png)
+
+And this the body of the result document:
+![](examples/comparison_example/result-2.png)
+
+To see more check the [examples folder](examples)
 
 ## Usage
 
