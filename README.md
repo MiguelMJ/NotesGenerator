@@ -1,6 +1,16 @@
-# NOG - Notes Generator
-Flex, Bash and PDFLaTex to take easy beautiful notes.
-***
+<img alt="NOG - Notes Generator" src="logo.svg" width=350>
+
+<h2 align="center">Take easy beautiful notes.</h2>
+
+<p align="center">
+<img alt="platform" src="https://img.shields.io/badge/platform-linux-informational?logo=linux&logoColor=white">
+<img alt="build_with" src="https://img.shields.io/badge/build_with-make,_flex,_pandoc-informational">
+<a href="LICENSE"><img alt="license" src="https://img.shields.io/badge/license-GPL_3.0-informational"></a>
+<a href="#Contents"><img alt="documentation" src="https://img.shields.io/badge/documentation-README-success"></a>
+<img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/MiguelMJ/NotesGenerator">
+</p>
+
+
 #### Contents
 
 - [What is NOG?](#what-is-nog)
@@ -26,7 +36,7 @@ Flex, Bash and PDFLaTex to take easy beautiful notes.
 
 ## What is NOG?
 
-LaTex is pretty, we can all agree in that. But taking notes in LaTex can be really tedious, too. NOG is a way to simplify this process. It's a pseudo-language which compiles to latex, and then to pdf. It is intended to be some kind of medium point between markdown and latex, something easy to write but extensible and customizable.
+LaTex is pretty, we can all agree in that. But taking notes in LaTex can be really tedious, too. NOG is a way to simplify this process. It's a pseudo-language converted to LaTex via Flex and then to PDF via pdflatex. It is intended to be some kind of medium point between Markdown and LaTex, something easy to write but extensible and customizable.
 
 ### And why not just markdown and pandoc?
 
@@ -281,4 +291,5 @@ Currently is not easy to find an error in the LaTex code produced by NOG. If you
 
 ## License
 
-NOG is licensed under the GPL-3.0 License.
+NOG is licensed under the GPL-3.0 License.bg
+
