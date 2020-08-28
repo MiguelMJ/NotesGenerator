@@ -44,6 +44,8 @@ Writing notes in markdown and translating to LaTex with pandoc is great, and you
 
 And, of course, another equally important reason is the possibility of extending NOG with new rules in Flex or LaTex commands. In the end the idea is to have nicer results with less typing.
 
+There are some examples in the [examples folder](examples)
+
 ## Usage
 
 `nog [options] <input_files>`
