@@ -153,7 +153,7 @@ bool footnote=false;
                     fin.close();
                 }else{
                     cout << endl << "\\lstset{language=" << lang << "}" << endl;
-                    cout << "\\begin{lstlisting}" << endl; 
+                    cout << "\\begin{lstlisting}"; 
                 }
                 BEGIN(CODE);                 
             }
