@@ -1,4 +1,4 @@
-<img align="center" alt="NOG - Notes Generator" src="logo.svg" width=350>
+<p align="center"><img alt="NOG - Notes Generator" src="logo.svg" width=350></p>
 
 <h2 align="center">Take easy beautiful notes.</h2>
 
