@@ -31,7 +31,7 @@
   </font>
  </defs>
  <defs class="TextShapeIndex">
-  <g ooo:slide="id1" ooo:id-list="id3 id4 id5 id6"/>
+  <g ooo:slide="id1" ooo:id-list="id3 id4 id5 id6 id7 id8"/>
  </defs>
  <defs class="EmbeddedBulletChars">
   <g id="bullet-char-template(57356)" transform="scale(0.00048828125,-0.00048828125)">
@@ -74,48 +74,62 @@
    <g id="id1" class="Slide" clip-path="url(#presentation_clip_path)">
     <g class="Page">
      <g class="Group">
-      <g class="Group">
-       <g class="com.sun.star.drawing.CustomShape">
-        <g id="id3">
-         <rect class="BoundingBox" stroke="none" fill="none" x="11491" y="491" width="1020" height="1020"/>
-         <path fill="rgb(255,255,204)" fill-opacity="0.502" stroke="rgb(255,255,255)" stroke-opacity="0.502" d="M 11500,500 L 12501,1501 11500,1501 11500,500 11500,500 Z M 11500,500 L 11500,500 Z M 12501,1501 L 12501,1501 Z"/>
-         <path fill="none" stroke="rgb(153,153,102)" stroke-width="18" stroke-linejoin="round" d="M 11500,500 L 12501,1501 11500,1501 11500,500 11500,500 Z"/>
-        </g>
-       </g>
-       <g class="com.sun.star.drawing.PolyPolygonShape">
-        <g id="id4">
-         <rect class="BoundingBox" stroke="none" fill="none" x="499" y="499" width="12003" height="7003"/>
-         <defs>
-          <mask id="mask1">
-           <g>
-            <defs>
-             <linearGradient id="gradient1" x1="6500" y1="7500" x2="6500" y2="500" gradientUnits="userSpaceOnUse">
-              <stop offset="0" style="stop-color:rgb(178,178,178)"/>
-              <stop offset="1" style="stop-color:rgb(51,51,51)"/>
-             </linearGradient>
-            </defs>
-            <path style="fill:url(#gradient1)" d="M 500,500 L 12500,500 12500,7500 500,7500 500,500 Z"/>
-           </g>
-          </mask>
-         </defs>
-         <g style="mask:url(#mask1)">
-          <path fill="rgb(255,255,204)" stroke="none" d="M 500,500 L 500,7500 12500,7500 12500,1500 11500,1500 11500,500 500,500 Z"/>
-         </g>
-         <path fill="none" stroke="rgb(51,51,0)" d="M 500,500 L 500,7500 12500,7500 12500,1500 11500,1500 11500,500 500,500 Z"/>
-        </g>
+      <g class="com.sun.star.drawing.CustomShape">
+       <g id="id3">
+        <rect class="BoundingBox" stroke="none" fill="none" x="11496" y="491" width="1020" height="1020"/>
+        <path fill="rgb(255,255,255)" stroke="none" d="M 11505,500 L 12506,1501 11505,1501 11505,500 11505,500 Z M 11505,500 L 11505,500 Z M 12506,1501 L 12506,1501 Z"/>
+        <path fill="none" stroke="rgb(153,153,102)" stroke-width="18" stroke-linejoin="round" d="M 11505,500 L 12506,1501 11505,1501 11505,500 11505,500 Z"/>
        </g>
       </g>
-      <g class="com.sun.star.drawing.TextShape">
+      <g class="com.sun.star.drawing.PolyPolygonShape">
+       <g id="id4">
+        <rect class="BoundingBox" stroke="none" fill="none" x="504" y="499" width="12003" height="7003"/>
+        <path fill="rgb(255,255,255)" stroke="none" d="M 505,500 L 505,7500 12505,7500 12505,1500 11505,1500 11505,500 505,500 Z"/>
+        <path fill="none" stroke="rgb(51,51,0)" d="M 505,500 L 505,7500 12505,7500 12505,1500 11505,1500 11505,500 505,500 Z"/>
+       </g>
+      </g>
+     </g>
+     <g class="Group">
+      <g class="com.sun.star.drawing.CustomShape">
        <g id="id5">
-        <rect class="BoundingBox" stroke="none" fill="none" x="1457" y="712" width="10744" height="5789"/>
-        <text class="TextShape"><tspan class="TextParagraph" font-family="CMU Serif, serif" font-size="4233px" font-weight="400"><tspan class="TextPosition" x="1707" y="4795"><tspan fill="rgb(51,51,51)" stroke="none">NOG</tspan></tspan></tspan></text>
+        <rect class="BoundingBox" stroke="none" fill="none" x="11491" y="491" width="1020" height="1020"/>
+        <path fill="rgb(255,255,204)" fill-opacity="0.502" stroke="rgb(255,255,255)" stroke-opacity="0.502" d="M 11500,500 L 12501,1501 11500,1501 11500,500 11500,500 Z M 11500,500 L 11500,500 Z M 12501,1501 L 12501,1501 Z"/>
+        <path fill="none" stroke="rgb(153,153,102)" stroke-width="18" stroke-linejoin="round" d="M 11500,500 L 12501,1501 11500,1501 11500,500 11500,500 Z"/>
        </g>
       </g>
-      <g class="com.sun.star.drawing.TextShape">
+      <g class="com.sun.star.drawing.PolyPolygonShape">
        <g id="id6">
-        <rect class="BoundingBox" stroke="none" fill="none" x="1658" y="5312" width="10744" height="1989"/>
-        <text class="TextShape"><tspan class="TextParagraph" font-family="CMU Sans Serif, sans-serif" font-size="987px" font-weight="400"><tspan class="TextPosition" x="1908" y="6334"><tspan fill="rgb(102,102,102)" stroke="none">NOTES GENERATOR</tspan></tspan></tspan></text>
+        <rect class="BoundingBox" stroke="none" fill="none" x="499" y="499" width="12003" height="7003"/>
+        <defs>
+         <mask id="mask1">
+          <g>
+           <defs>
+            <linearGradient id="gradient1" x1="6500" y1="7500" x2="6500" y2="500" gradientUnits="userSpaceOnUse">
+             <stop offset="0" style="stop-color:rgb(178,178,178)"/>
+             <stop offset="1" style="stop-color:rgb(51,51,51)"/>
+            </linearGradient>
+           </defs>
+           <path style="fill:url(#gradient1)" d="M 500,500 L 12500,500 12500,7500 500,7500 500,500 Z"/>
+          </g>
+         </mask>
+        </defs>
+        <g style="mask:url(#mask1)">
+         <path fill="rgb(255,255,204)" stroke="none" d="M 500,500 L 500,7500 12500,7500 12500,1500 11500,1500 11500,500 500,500 Z"/>
+        </g>
+        <path fill="none" stroke="rgb(51,51,0)" d="M 500,500 L 500,7500 12500,7500 12500,1500 11500,1500 11500,500 500,500 Z"/>
        </g>
+      </g>
+     </g>
+     <g class="com.sun.star.drawing.TextShape">
+      <g id="id7">
+       <rect class="BoundingBox" stroke="none" fill="none" x="1457" y="712" width="10744" height="5789"/>
+       <text class="TextShape"><tspan class="TextParagraph" font-family="CMU Serif, serif" font-size="4233px" font-weight="400"><tspan class="TextPosition" x="1707" y="4795"><tspan fill="rgb(51,51,51)" stroke="none">NOG</tspan></tspan></tspan></text>
+      </g>
+     </g>
+     <g class="com.sun.star.drawing.TextShape">
+      <g id="id8">
+       <rect class="BoundingBox" stroke="none" fill="none" x="1658" y="5312" width="10744" height="1989"/>
+       <text class="TextShape"><tspan class="TextParagraph" font-family="CMU Sans Serif, sans-serif" font-size="988px" font-weight="400"><tspan class="TextPosition" x="1908" y="6334"><tspan fill="rgb(102,102,102)" stroke="none">NOTES GENERATOR</tspan></tspan></tspan></text>
       </g>
      </g>
     </g>
